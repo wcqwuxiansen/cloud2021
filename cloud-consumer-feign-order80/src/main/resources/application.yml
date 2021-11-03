@@ -1,0 +1,25 @@
+server:
+  port: 80
+
+eureka:
+  client:
+    register-with-eureka: true
+    fetchRegistry: true
+    service-url:
+      #defaultZone: http://localhost:7001/eureka #注册中心单机版
+      defaultZone: http://eureka01.com:7001/eureka/,http://eureka02.com:7002/eureka/ #注册中心集群版
+  instance:
+    instance-id: orderfeign80
+    prefer-ip-address: true
+
+spring:
+  application:
+    name: cloud-order-feign-service
+
+ribbon:
+  ReadTimeout:  5000
+  ConnectTimeout: 5000
+
+logging:
+  level:
+    com.atguigu.springcloud.feignclient.PaymentFeignService: debug

@@ -10,7 +10,11 @@ import org.springframework.cloud.client.ServiceInstance;
 import org.springframework.cloud.client.discovery.DiscoveryClient;
 import org.springframework.web.bind.annotation.*;
 
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.List;
+import java.util.concurrent.TimeUnit;
 
 @RestController
 @RequestMapping("/payment")
@@ -40,7 +44,8 @@ public class PaymentController {
     public CommonResult getPaymentById(@PathVariable("id") long id){
         Payment payment = paymentService.getPaymentById(id);
         if(payment!=null){
-            return new CommonResult(200,"查询数据库成功,端口为:"+server_port,payment);
+            DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd hh:mm:ss");
+            return new CommonResult(200,"查询数据库成功,端口为:"+server_port+"  "+dateFormat.format(new Date()),payment);
         }
         return new CommonResult(400,"没有对应的查询记录，id为："+id,null);
     }
@@ -58,5 +63,16 @@ public class PaymentController {
 
         return this.discoveryClient;
     }
+
+    @GetMapping(value = "/feign/timeout")
+    public String paymentFeignTimeout(){
+        try {
+                TimeUnit.SECONDS.sleep(3);
+             }catch (Exception e) {
+                e.printStackTrace();
+        }
+        return server_port;
+    }
+
 }
 
