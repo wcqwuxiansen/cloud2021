@@ -1,0 +1,29 @@
+server:
+  port: 3344
+spring:
+  application:
+    name: cloud-config-center
+  rabbitmq:
+    host: 192.168.11.130
+    port: 5672
+    username: guest
+    password: guest
+    virtual-host: /
+  cloud:
+    config:
+      server:
+        git:
+          uri: git@github.com:wcqwuxiansen/cloud-config.git #github仓库地址
+          search-paths:
+            - cloud-config  #github仓库目录
+      label: master   #主分支
+eureka:
+  client:
+    service-url:
+      defaultZone: http://eureka02.com:7002/eureka/,http://eureka01.com:7001/eureka/
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include: 'bus-refresh'
