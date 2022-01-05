@@ -14,5 +14,5 @@ spring:
         server-addr: 192.168.11.132:1111 #配置中心地址
         file-extension: yaml #指定yaml格式的配置
         group: DEV_GROUP
-        #namespace: afba7973-ea7c-447f-a63a-e9f900876efe
+        # #namespace: afba7973-ea7c-447f-a63a-e9f900876efe
 
